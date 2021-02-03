@@ -24,302 +24,444 @@
     <div class="reveal">
       <div class="slides">
         <section>
-          <h2 style="text-align: left">
-            自分が思う<br />
-            GraphQL のメリット
-          </h2>
-          <h4 style="text-align: left">
-            REST API より開発が楽になるのか... メリットをあげてみた
-          </h4>
+          <h2 style="text-align: left">GraphQL - メリット考察</h2>
+          <h4 style="text-align: left">REST API と比較してみた</h4>
         </section>
         <section>
-          <h3 style="text-align: left">REST API</h3>
-          <div style="text-align: left">
-            <span style="color: #eee8d5">
-              Client、 Server
-              間でなんらかの処理をするためのインターフェースのこと
-            </span>
-          </div>
-          <img src="/images/restapi.png" />
-        </section>
-        <section>
-          <h3 style="text-align: left">REST API</h3>
-          <div style="text-align: left">
-            <span style="color: #eee8d5"> Mochip の構成 </span>
-          </div>
-          <img src="/images/restapi_mochip.png" />
-        </section>
-        <section>
-          <div style="text-align: left">
-            <span style="color: #eee8d5">
-              フロント側では UI を作成し、データは API から取得
-            </span>
-            <br />
-            <span style="font-size: 0.7em">
-              ユーザー名、ユーザー画像の URL、いいね数などのデータ全て
-            </span>
-            <img src="/images/mochip2.png" />
-          </div>
-        </section>
-        <section>
-          <h3 style="text-align: left">GraphQL（グラフ QL）</h3>
-          <div style="display: flex; justify-content: space-between">
-            <div style="text-align: left; flex-basis: 40%">
-              <span style="color: #eee8d5; font-size: 0.7em">
-                HTTP リクエストを行うための仕様（クエリ言語を使用）
+          <section>
+            <div>
+              <span style="color: #eee8d5">アプリケーションの構成</span>
+            </div>
+            <img src="/images/system.png" />
+          </section>
+          <section>
+            <div style="text-align: left">
+              <span style="color: #eee8d5">
+                フロント側では UI を作成し、データは API から取得
               </span>
-              <div
-                style="
-                  padding: 0.2em;
-                  margin: 0.2em 0.2em 0.2em 0;
-                  border: 0.1rem solid #eee8d5;
-                "
-              >
+              <br />
+              <span style="font-size: 0.7em">
+                ユーザー名、ユーザー画像の URL、いいね数などのデータ全て
+              </span>
+              <img src="/images/mochip2.png" />
+            </div>
+          </section>
+        </section>
+        <section>
+          <div>
+            <span style="color: #eee8d5">プロトコルの歴史</span>
+          </div>
+          <img src="/images/timeline.png" />
+        </section>
+        <section>
+          <section>
+            <h3 style="text-align: left">REST API</h3>
+            <div style="text-align: left">
+              <span style="color: #eee8d5">
+                大半のシステムは REST API を採用している
+              </span>
+            </div>
+            <img src="/images/restapi.png" />
+          </section>
+          <section>
+            <img src="/images/rest.png" />
+            <div style="text-align: left">
+              <span style="color: #eee8d5; font-size: 0.7em">
+                ・"/users/[id]" と言うエンドポイントに対してリクエスト<br />
+                ・1 ユーザーのデータを取得
+              </span>
+              <pre><code data-line-numbers="3">axios({
+  method: "get",
+  url: "/users/1",
+});</code></pre>
+            </div>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3 style="text-align: left">GraphQL（グラフ QL）</h3>
+            <div style="display: flex; justify-content: space-between">
+              <div style="text-align: left; flex-basis: 40%">
                 <span style="color: #eee8d5; font-size: 0.7em">
-                  クエリを大きく分けると Query と Mutation に分類できる
+                  ・比較的最近の手法<br />
+                  ・クエリスタイルでデータを取得
                 </span>
-              </div>
-              <div
-                style="
-                  padding: 0.2em;
-                  margin: 0.2em 0.2em 0.2em 0;
-                  border: 0.1rem solid #eee8d5;
-                "
-              >
-                <span style="color: #eee8d5; font-size: 0.7em">
-                  Query <br />-> read <br />Mutation <br />-> create, update,
-                  delete
-                </span>
-              </div>
-            </div>
-            <div
-              style="
-                flex-basis: 60%;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-              "
-            >
-              <img src="/images/graphqlimage.png" />
-            </div>
-          </div>
-        </section>
-        <section>
-          <h3 style="text-align: left">GraphQL query の例</h3>
-          <div style="text-align: left">
-            <span style="color: #eee8d5; font-size: 0.7em">
-              query で指定したデータのみ返ってくる
-            </span>
-          </div>
-          <img src="/images/graphqlimage2.png" />
-        </section>
-        <section>
-          <h3 style="text-align: left">メリット1<br />エンドポイント</h3>
-          <div style="display: flex; justify-content: space-between">
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                border: 0.1rem solid rgb(184, 60, 60);
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <p>REST API の辛いところ</p>
-              <ul>
-                <li>
-                  エンドポイントが無限に増えるので管理するの大変（追加削除を繰り返す）
-                </li>
-                <li>
-                  リクエストメソッドによって挙動が変わることがある（get, post,
-                  put, delete...）
-                </li>
-              </ul>
-            </div>
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                border: 0.1rem solid rgb(168, 167, 167);
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <p>GraphQL の良いところ</p>
-              <ul>
-                <li>
-                  エンドポイントは一つだけ<br />
-                  <span style="font-weight: bold">/graphql</span>
-                </li>
-                <li>
-                  メソッドの種類は Query (get) と Mutation (post, put,
-                  delete)だけ
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-        <section>メリット1　エンドポイント　例を載せる</section>
-        <section>
-          <h3 style="text-align: left">メリット2<br />バックエンドとの連携</h3>
-          <div style="display: flex; justify-content: space-between">
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                border: 0.1rem solid rgb(184, 60, 60);
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <p>REST API の辛いところ</p>
-              <span>ドキュメントがないと...</span>
-              <ul>
-                <li>どういう API が提供されているかわからない</li>
-                <li>
-                  API からどういう値を取得できるか動かしてみるまでわからない
-                </li>
-              </ul>
-            </div>
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                border: 0.1rem solid rgb(168, 167, 167);
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <p>GraphQL の良いところ</p>
-              <ul>
-                <li>
-                  API の仕様全てを<br />
-                  <span style="font-weight: bold">/playground</span><br />
-                  とブラウザで叩くと確認できる
-                </li>
-                <li>playground で GUI で Query を試せる(Postman のような)</li>
-                <li>Query の自動補完も効く</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h3 style="text-align: left">メリット2<br />バックエンドとの連携</h3>
-          <img src="/images/playground.png" />
-        </section>
-        <section>
-          <h3 style="text-align: left">
-            メリット3<br />Over-fetching/ Under-fetching
-          </h3>
-          <div style="display: flex; justify-content: space-between">
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                border: 0.1rem solid rgb(184, 60, 60);
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <p>REST API の辛いところ</p>
-              <ul>
-                <li>
-                  不要なデータも取って来てしまう<br />
-                  （Over-fetching）
-                  <br />
-                  <span>→ 大規模なシステムだとコストが顕著になる</span>
-                </li>
-                <li>
-                  必要なデータを取ってこれない
-                  <br />
-                  （Under-fetching）
-                  <br />
-                  <span>→ 追加でエンドポイントを作成しないといけない</span>
-                </li>
-              </ul>
-            </div>
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <span>REST：Over-fetching の例</span>
-              <img src="/images/overfetching.png" />
-            </div>
-          </div>
-        </section>
-        <section>
-          <h3 style="text-align: left">
-            メリット3<br />Over-fetching/ Under-fetching
-          </h3>
-          <div style="display: flex; justify-content: space-between">
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                border: 0.1rem solid rgb(168, 167, 167);
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <p>GraphQL の良いところ</p>
-              <ul>
-                <li>
-                  GraphQL の場合は、欲しいものだけ取ってこれる<br />
-                  <span style="color: #93a1a1"
-                    >（エンドポイントを新しく作らなくても、他の Query
-                    から欲しいデータだけを取ってこれることもある）
+                <div
+                  style="
+                    padding: 0.2em;
+                    margin: 0.2em 0.2em 0.2em 0;
+                    border: 0.1rem solid #eee8d5;
+                  "
+                >
+                  <span style="color: #eee8d5; font-size: 0.7em">
+                    クエリの分類<br />
+                    <span style="text-decoration: underline">Query</span>と
+                    <span style="text-decoration: underline">Mutation</span>
+                    のみ
                   </span>
-                </li>
-              </ul>
+                </div>
+                <div
+                  style="
+                    padding: 0.2em;
+                    margin: 0.2em 0.2em 0.2em 0;
+                    border: 0.1rem solid #eee8d5;
+                  "
+                >
+                  <span style="color: #eee8d5; font-size: 0.7em">
+                    <span style="text-decoration: underline">Query</span>
+                    <br />-> read <br />
+                    <span style="text-decoration: underline">Mutation</span>
+                    <br />-> create, update, delete
+                  </span>
+                </div>
+              </div>
+              <div
+                style="
+                  flex-basis: 60%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-end;
+                "
+              >
+                <img src="/images/graphqlimage.png" />
+              </div>
             </div>
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <span>GraphQL：必要なデータのみ取得</span>
-              <img src="/images/justfetching.png" />
+          </section>
+          <section>
+            <h3 style="text-align: left">Query の例</h3>
+            <div style="text-align: left">
+              <span style="color: #eee8d5; font-size: 0.7em">
+                欲しいデータを Query に書いていく
+              </span>
             </div>
-          </div>
+            <img src="/images/graphqlimage2.png" />
+          </section>
         </section>
         <section>
-          <h3 style="text-align: left">
-            メリット3<br />Over-fetching/ Under-fetching
-          </h3>
-          <div style="display: flex; justify-content: space-between">
-            <div
-              style="
-                flex-basis: 50%;
-                padding: 0.2em;
-                margin: 0.2em 0.2em 0.2em 0;
-                border: 0.1rem solid rgb(168, 167, 167);
-                color: #eee8d5;
-                font-size: 0.7em;
-              "
-            >
-              <p>REST API の良いところ</p>
-              <ul>
-                <li>
-                  基本的に エンドポイントを決めて（route に設定して） Json や
-                  XML を返せば良い
-                </li>
-              </ul>
+          <section>
+            <h3 style="text-align: left">メリット1<br />エンドポイントの数</h3>
+            <div style="display: flex; justify-content: space-between">
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(184, 60, 60);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>REST API の辛いところ</p>
+                <ul>
+                  <li>エンドポイントが無限に増える</li>
+                  <li>
+                    リクエストのメソッドが紛らわしい（get, post, put,
+                    delete...）
+                  </li>
+                </ul>
+              </div>
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(168, 167, 167);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>GraphQL の良いところ</p>
+                <ul>
+                  <li>
+                    エンドポイントは一つだけ<br />
+                    <span style="font-weight: bold">/graphql</span>
+                  </li>
+                  <li>
+                    メソッドの種類は Query (get) と Mutation (post, put,
+                    delete)だけ
+                  </li>
+                </ul>
+              </div>
             </div>
+            <aside class="notes">
+              ・API
+              が追加されるごとに環境設定ファイルに追加・管理する必要がある<br />
+              （開発環境がたくさんあったり、PC/モバイルを開発するとなってくると大変になってくる）<br />
+              ・get post かの違いで動いてないよ！っていう話になる時がある。
+            </aside>
+          </section>
+          <section>
+            <div style="display: flex; justify-content: space-between">
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(184, 60, 60);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>REST API</p>
+                <pre><code data-line-numbers="">const users = "/users";
+const user = "/users/:userId";
+const friends = "/users/:userId/friends";
+const friend = "/users/:userId/friends/:friendId";
+const likes = "/users/:userId/likes"
+const favorites = "/users/:userId/favorites"
+const login = "/login";
+const logout = "/logout";
+...
+                </code></pre>
+              </div>
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(168, 167, 167);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>GraphQL</p>
+                <pre><code data-line-numbers="">/graphql</code></pre>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3 style="text-align: left">
+              メリット2<br />バックエンドとの連携
+            </h3>
+            <div style="display: flex; justify-content: space-between">
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(184, 60, 60);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>REST API の辛いところ</p>
+                <ul>
+                  <li>どういう API が提供されているかわからない</li>
+                  <li>
+                    API からどういう値を取得できるか動かしてみるまでわからない
+                  </li>
+                </ul>
+                <span style="color: #93a1a1"
+                  >（基本的に仕様用のドキュメントはないか最新じゃない）</span
+                >
+              </div>
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(168, 167, 167);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>GraphQL の良いところ</p>
+                <ul>
+                  <li>
+                    <span style="font-weight: bold">/playground</span><br />
+                    とブラウザで叩くとAPI の全仕様を確認できる
+                  </li>
+                  <li>Playground で Query を試せる(Postman のような)</li>
+                  <li>Query の自動補完が効く</li>
+                </ul>
+              </div>
+            </div>
+            <aside class="notes">
+              ・バックエンドとフロントエンドの開発者が同じであれば問題は軽減されるかもしれませんが...<br />
+              ・開発段階で API
+              を利用する側（フロントエンド側）がバックエンドと連携を取れる前提<br />
+              ・あとから参入したフロントエンド開発者が既存の処理を回収するのは結構大変（何気なく行われているいますが...）
+            </aside>
+          </section>
+          <section>
+            <img src="/images/playground.png" />
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3 style="text-align: left">
+              メリット3<br />Over-fetching/ Under-fetching
+            </h3>
+            <div style="display: flex; justify-content: space-between">
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(184, 60, 60);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>REST API の辛いところ</p>
+                <ul>
+                  <li>
+                    不要なデータも取って来てしまう<br />
+                    （Over-fetching）
+                    <br />
+                    <span>→ 大規模なシステムだとコストが顕著になる</span>
+                  </li>
+                  <li>
+                    必要なデータを一回で取ってこれない
+                    <br />
+                    （Under-fetching）
+                    <br />
+                    <span>→ 何度もリクエストを投げないといけない</span>
+                  </li>
+                </ul>
+              </div>
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <span>REST：Over-fetching の例</span>
+                <img src="/images/overfetching.png" />
+              </div>
+            </div>
+            <aside class="notes">
+              ・Over-fetching がよくない理由<br />
+              モバイル端末のネットワークがそんな早くない<br />
+            </aside>
+          </section>
+          <section>
+            <div style="display: flex; justify-content: space-between">
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(168, 167, 167);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>GraphQL の良いところ</p>
+                <ul>
+                  <li>
+                    <p>Over-fetching 解消</p>
+                    → GraphQL では欲しいものだけ取ってこれる<br />
+                    <!-- <span style="color: #93a1a1"
+                      >（エンドポイントを新しく作らなくても、他の Query
+                      から欲しいデータだけを取ってこれることもある）
+                    </span> -->
+                  </li>
+                  <li>
+                    <p>Over-fetching 解消</p>
+                    ORM でもリレーションを組めば一回でとってこれる →
+                    Over-fetching につながる
+                    <br />
+                    → GraphQL ではリレーションを取ってくるかどうかを<span
+                      style="text-decoration: underline"
+                      >使う側</span
+                    >が決めることができる
+                  </li>
+                </ul>
+              </div>
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <span>GraphQL：必要なデータのみ取得</span>
+                <img src="/images/justfetching.png" />
+              </div>
+            </div>
+            <aside class="notes">
+              ・使う側はリレーションを取ってくるかどうか決めらるので、PC でも SP
+              でも適切なデータを取ってくることができる
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3 style="text-align: left">デメリット<br />学習コスト</h3>
+            <div style="display: flex; justify-content: space-between">
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(168, 167, 167);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>REST API の良いところ</p>
+                <ul>
+                  <li>
+                    基本的に エンドポイントを決めて（route に設定して） Json や
+                    XML を返せば良い
+                  </li>
+                </ul>
+              </div>
+              <div
+                style="
+                  flex-basis: 50%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(184, 60, 60);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <span>GraphQL の辛いところ</span>
+                <ul>
+                  <li>
+                    フロント、サーバーでそれぞれツールを導入しないといけない
+                  </li>
+                  <li>
+                    プログラミング言語ごと、package
+                    ごとに仕様が若干違うため、開発環境が変わると学び直さない部分が出てくる
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div style="display: flex; justify-content: center">
+              <div
+                style="
+                  flex-basis: 70%;
+                  padding: 0.2em;
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid rgb(168, 167, 167);
+                  color: #eee8d5;
+                  font-size: 0.7em;
+                "
+              >
+                <p>REST API</p>
+                <span style="font-size: 0.7em"
+                  >基本的に辞書にして返すだけ<code> {"key": value,}</code></span
+                >
+                <pre><code data-line-numbers="">@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
+                </code></pre>
+              </div>
+            </div>
+          </section>
+          <section>
             <div
               style="
                 flex-basis: 50%;
@@ -330,68 +472,103 @@
                 font-size: 0.7em;
               "
             >
-              <span>GraphQL の辛いところ</span>
-              <ul>
-                <li>
-                  フロント、サーバーでそれぞれツールを導入しないといけない
-                </li>
-                <li>
-                  プログラミング言語ごと、package
-                  ごとに仕様が若干違うため、開発環境が変わると学び直さない部分が出てくる
-                </li>
-              </ul>
+              <span>GraphQL</span>
+              <div style="display: flex; justify-content: space-between">
+                <div style="flex-basis: 30%">
+                  <div
+                    style="
+                      flex-basis: 100%;
+                      padding: 0.2em;
+                      margin: 0.5em 0.2em 0.5em 0;
+                      border: 0.1rem solid rgb(168, 167, 167);
+                      color: #eee8d5;
+                      font-size: 0.7em;
+                    "
+                  >
+                    <span
+                      >Schema を定義しないといけない<br />（DBのマイグレーションファイルのようなデータ構造）</span
+                    >
+                  </div>
+                  <div
+                    style="
+                      flex-basis: 50%;
+                      padding: 0.2em;
+                      margin: 0.5em 0.2em 0.5em 0;
+                      border: 0.1rem solid rgb(168, 167, 167);
+                      color: #eee8d5;
+                      font-size: 0.7em;
+                    "
+                  >
+                    <span
+                      >ただ
+                      <span style="text-decoration: underline"
+                        >マイグレーションのDB定義にアノテーションをつけるだけ</span
+                      >で Schema を自動生成してくれるツールもある</span
+                    >
+                  </div>
+                </div>
+                <div style="flex-basis: 70%">
+                  <img src="/images/schema.png" />
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
-        <section>
-          <h3 style="text-align: left">
-            メリット3<br />Over-fetching/ Under-fetching
-          </h3>
-          <div style="display: flex; justify-content: space-between">
-            <div style="flex-basis: 30%">
+          </section>
+          <section>
+            <div style="display: flex; justify-content: space-between">
               <div
                 style="
                   flex-basis: 50%;
                   padding: 0.2em;
-                  margin: 0.5em 0.2em 0.5em 0;
-                  border: 0.1rem solid rgb(168, 167, 167);
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid #eee8d5;
                   color: #eee8d5;
                   font-size: 0.7em;
                 "
               >
-                <span
-                  >例えば、DB
-                  のマイグレーションファイルのようなデータ構造を定義しておかないといけない(Schema)</span
-                >
+                <p>クライアント</p>
+                <pre><code data-line-numbers="">const { data } = useQuery(gql`
+  query GET_USERS($id: Float!) {
+    getUser(id: $id) {
+      name
+      friends {
+        id
+        name 
+        friends {
+          id
+          name
+        }
+      }
+    }
+  }`);
+              </code></pre>
               </div>
               <div
                 style="
                   flex-basis: 50%;
                   padding: 0.2em;
-                  margin: 0.5em 0.2em 0.5em 0;
-                  border: 0.1rem solid rgb(168, 167, 167);
+                  margin: 0.2em 0.2em 0.2em 0;
+                  border: 0.1rem solid #eee8d5;
                   color: #eee8d5;
                   font-size: 0.7em;
                 "
               >
-                <span
-                  >ただ
-                  <span style="text-decoration: underline"
-                    >マイグレーションのDB定義にアノテーションをつけるだけ</span
-                  >で Schema を自動生成してくれるツールもある</span
-                >
+                <p>サーバー</p>
+                <pre><code data-line-numbers="">// schema を作る
+type User {
+  id: ID!
+  name: String!
+  email: String
+}
+// resolver を作る
+@Query((returns) => User)
+async getUser(@Arg("id") id: number):Promise&lt;User | undefined&gt; {
+  return await User.findOneOrFail(id);
+}
+// **この作り方はツールによって違う**
+                </code></pre>
               </div>
             </div>
-            <div style="flex-basis: 70%">
-              <img src="/images/schema.png" />
-            </div>
-          </div>
-        </section>
-        <section>
-          <h3 style="text-align: left">
-            メリット3<br />Over-fetching/ Under-fetching
-          </h3>
-          ソースを貼る
+          </section>
         </section>
         <section>
           <h3 style="text-align: left">まとめ</h3>
@@ -402,32 +579,21 @@
               margin: 0.5em 0.2em 0.5em 0;
               border: 0.1rem solid rgb(168, 167, 167);
               color: #eee8d5;
-              font-size: 0.7em;
+              font-size: 0.7em; ;
             "
           >
             <ul>
               <li>
-                <span style="text-decoration: underline"
-                  >一度取り入れて慣れれば結構便利</span
-                >だと思う
+                開発対象が PCとSP（モバイル）なら GraphQL なら API
+                一つで対応でき、 Over-fetching/ Under-fetching も解消
               </li>
               <li>
-                フロント側がサーバー側のエンジニアに色んな意味で依存しない
+                常に最新のドキュメントがあり、API
+                リクエストのデバッグが簡単。そのためフロント側がサーバー側に色んな意味で依存しない
               </li>
               <li>
-                常に最新のドキュメントがあり、API リクエストのデバッグが簡単
-              </li>
-              <li>
-                新しく参入するエンジニアもやりやすいはず<br />
-                <span style="color: #93a1a1"
-                  >(ドキュメントやデバッグ環境が整っている)</span
-                >
-              </li>
-              <li>
-                開発時より保守時にすごく恩恵を受けると思う<br />
-                <span style="color: #93a1a1"
-                  >(うっすら仕様を忘れかけているとき)</span
-                >
+                仕様がどうなってるかわからない古い API を GraphQL
+                でラップすることもできる
               </li>
             </ul>
           </div>
