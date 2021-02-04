@@ -278,7 +278,7 @@ const logout = "/logout";
               ・バックエンドとフロントエンドの開発者が同じであれば問題は軽減されるかもしれませんが...<br />
               ・開発段階で API
               を利用する側（フロントエンド側）がバックエンドと連携を取れる前提<br />
-              ・あとから参入したフロントエンド開発者が既存の処理を回収するのは結構大変（何気なく行われているいますが...）
+              ・あとから参入したフロントエンド開発者が既存の処理を回収するのは結構大変（何気なく行われていますが...）
             </aside>
           </section>
         </section>
@@ -356,7 +356,7 @@ const logout = "/logout";
                     </span> -->
                   </li>
                   <li>
-                    <p>Over-fetching 解消</p>
+                    <p>Under-fetching 解消</p>
                     ORM でもリレーションを組めば一回でとってこれる →
                     Over-fetching につながる
                     <br />
@@ -382,7 +382,8 @@ const logout = "/logout";
             </div>
             <aside class="notes">
               ・使う側はリレーションを取ってくるかどうか決めらるので、PC でも SP
-              でも適切なデータを取ってくることができる
+              でも適切なデータを取ってくることができる<br>
+              ・Facebook などのフィードとかになってくると膨大になってくる（PC と SP では取ってきているデータ量・内容が違う）
             </aside>
           </section>
         </section>
@@ -421,7 +422,7 @@ const logout = "/logout";
                 <span>GraphQL の辛いところ</span>
                 <ul>
                   <li>
-                    フロント、サーバーでそれぞれツールを導入しないといけない
+                    フロントエンド、バックエンドでそれぞれツールを導入しないといけない
                   </li>
                   <li>
                     プログラミング言語ごと、package
@@ -577,7 +578,7 @@ async getUser(@Arg("id") id: number):Promise&lt;User | undefined&gt; {
           >
             <ul>
               <li>
-                開発対象が PCとSP（モバイル）なら GraphQL なら API
+                開発対象が PC と SP（モバイル）なら GraphQL なら API
                 一つで対応でき、 Over-fetching/ Under-fetching も解消
               </li>
               <li>
